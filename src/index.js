@@ -95,6 +95,55 @@ function Menu() {
   );
 }
 
-function Pizza({pizzaobj}){
-    
+function Pizza({ pizzaobj }) {
+  return (
+    <li className={`pizza ${pizzaobj.soldOut ? "sold-out" : ""}`}>
+      <img src={pizzaobj.photoName} alt={pizzaobj.name} />
+      <div>
+        <h3>{pizzaobj.name}</h3>
+        <p>{pizzaobj.ingredients}</p>
+        <span>{pizzaobj.soldOut ? "Sold OUt" : pizzaobj.price}</span>
+      </div>
+    </li>
+  );
 }
+
+function Footer() {
+  const hour = new Date().getHours();
+  const openHour = 8;
+  const closeHour = 22;
+  const isOpen = hour >= openHour && hour <= closeHour;
+
+  return (
+    <footer className="footer">
+      {isOpen ? (
+        <Order closeHour={closeHour} openHour={openHour} />
+      ) : (
+        <p>
+          We're happy to welcome you between {openHour}:00 and {closeHour}:00
+        </p>
+      )}
+    </footer>
+  );
+}
+
+function Order({ closeHour, openHour }) {
+  return (
+    <div className="order">
+      <p>
+        We're open from {openHour}:00 to {closeHour}:00. Come visit us or order
+        online
+      </p>
+      <button className="btn">Order</button>
+    </div>
+  );
+}
+
+//React v18
+//including-
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
